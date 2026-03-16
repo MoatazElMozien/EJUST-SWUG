@@ -1734,53 +1734,36 @@ function showToast(msg){
 // Plays videos when they enter the viewport (always allowed by browsers)
 // Also plays all on first user interaction as fallback
 function initVideoPlayback(){
-  const playAll = ()=>{
-    document.querySelectorAll('video').forEach(v=>{
-      v.muted=true;
-      v.play().catch(()=>{});
-    });
-  };
-
-  // IntersectionObserver: play when visible, pause when not
-  const observer = new IntersectionObserver((entries)=>{
-    entries.forEach(entry=>{
-      const v = entry.target;
-      if(entry.isIntersecting){
-        v.muted = true;
-        v.play().catch(()=>{});
-      } else {
-        v.pause();
-      }
-    });
-  }, { threshold: 0.1 });
-
-  // Observe all current videos
-  document.querySelectorAll('video').forEach(v=>{
+  function bootVideo(v){
     v.muted = true;
-    observer.observe(v);
-  });
-
-  // Re-observe whenever new videos are added to DOM (MutationObserver)
+    v.setAttribute('muted','');
+    v.addEventListener('loadedmetadata',function(){
+      this.currentTime=0.001;
+    },{once:true});
+    v.addEventListener('loadeddata',function(){
+      this.currentTime=0.001;
+      this.play().catch(()=>{});
+    },{once:true});
+    if(v.readyState>=2){ v.currentTime=0.001; v.play().catch(()=>{}); }
+  }
+  document.querySelectorAll('video').forEach(bootVideo);
   new MutationObserver(mutations=>{
     mutations.forEach(m=>{
       m.addedNodes.forEach(node=>{
-        if(node.nodeType !== 1) return;
-        const vids = node.tagName==='VIDEO' ? [node] : [...node.querySelectorAll('video')];
-        vids.forEach(v=>{ v.muted=true; observer.observe(v); v.play().catch(()=>{}); });
+        if(node.nodeType!==1) return;
+        const vids=node.tagName==='VIDEO'?[node]:[...node.querySelectorAll('video')];
+        vids.forEach(bootVideo);
       });
     });
-  }).observe(document.body, { childList:true, subtree:true });
-
-  // Fallback: play all on first click/touch anywhere
-  const onInteract = ()=>{
-    playAll();
-    document.removeEventListener('click', onInteract);
-    document.removeEventListener('touchstart', onInteract);
-    document.removeEventListener('keydown', onInteract);
+  }).observe(document.body,{childList:true,subtree:true});
+  const onInteract=()=>{
+    document.querySelectorAll('video').forEach(v=>{
+      v.muted=true; v.currentTime=0.001; v.play().catch(()=>{});
+    });
   };
-  document.addEventListener('click', onInteract);
-  document.addEventListener('touchstart', onInteract);
-  document.addEventListener('keydown', onInteract);
+  document.addEventListener('click',    onInteract,{once:true});
+  document.addEventListener('touchstart',onInteract,{once:true});
+  document.addEventListener('scroll',   onInteract,{once:true});
 }
 
 // ── INIT ──────────────────────────────────────────────────────
