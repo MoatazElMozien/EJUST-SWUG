@@ -1737,14 +1737,11 @@ function initVideoPlayback(){
   function bootVideo(v){
     v.muted = true;
     v.setAttribute('muted','');
-    v.addEventListener('loadedmetadata',function(){
-      this.currentTime=0.001;
-    },{once:true});
-    v.addEventListener('loadeddata',function(){
-      this.currentTime=0.001;
+    v.addEventListener('canplay',function(){
       this.play().catch(()=>{});
     },{once:true});
-    if(v.readyState>=2){ v.currentTime=0.001; v.play().catch(()=>{}); }
+    v.load();
+    if(v.readyState>=3){ v.play().catch(()=>{}); }
   }
   document.querySelectorAll('video').forEach(bootVideo);
   new MutationObserver(mutations=>{
@@ -1833,18 +1830,15 @@ function makeScCard(p, i, vidsArr){
 
   if(p.mediaType === 'video'){
     const vid = document.createElement('video');
-    vid.muted = true;
-    vid.loop = true;
-    vid.playsInline = true;
-    vid.autoplay = true;
     vid.setAttribute('muted','');
     vid.setAttribute('autoplay','');
     vid.setAttribute('loop','');
     vid.setAttribute('playsinline','');
     vid.setAttribute('preload','auto');
     vid.style.cssText = 'width:100%;height:220px;object-fit:cover;display:block';
-    vid.src = p.mediaSrc;
-    mediaWrap.appendChild(vid);
+    mediaWrap.appendChild(vid); // IN DOM first
+    vid.src = p.mediaSrc;      // src set AFTER in DOM
+    vid.load();                // explicit load
     if(vidsArr) vidsArr.push(vid);
   } else if(hasGallery){
     p.images.forEach((src,j)=>{
@@ -2037,15 +2031,14 @@ function buildGrid(){
     mediaWrap.className='proj-media';
     if(p.mediaType==='video'){
       const vid=document.createElement('video');
-      vid.muted=true; vid.loop=true; vid.autoplay=true;
-      vid.playsInline=true;
       vid.setAttribute('muted','');
       vid.setAttribute('autoplay','');
       vid.setAttribute('loop','');
       vid.setAttribute('playsinline','');
       vid.setAttribute('preload','auto');
-      vid.src=p.mediaSrc;
-      mediaWrap.appendChild(vid);
+      mediaWrap.appendChild(vid); // IN DOM first
+      vid.src=p.mediaSrc;        // src set AFTER in DOM
+      vid.load();                // explicit load
       vidsToPlay.push(vid);
     } else {
       const img=document.createElement('img');
@@ -2077,7 +2070,10 @@ function buildGrid(){
     grid.appendChild(card); // IN DOM first
   });
   // NOW play — videos are in the document
-  vidsToPlay.forEach(v=>v.play().catch(()=>{}));
+  vidsToPlay.forEach(v=>{
+    v.load();
+    v.play().catch(()=>{});
+  });
 }
 
 // ── MODAL ─────────────────────────────────────────────────────
