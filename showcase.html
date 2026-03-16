@@ -1850,16 +1850,18 @@ function makeScCard(p, i, vidsArr){
 
   if(p.mediaType === 'video'){
     const vid = document.createElement('video');
-    vid.src = p.mediaSrc;
     vid.muted = true;
     vid.loop = true;
     vid.playsInline = true;
     vid.autoplay = true;
+    vid.setAttribute('muted','');
+    vid.setAttribute('autoplay','');
+    vid.setAttribute('loop','');
     vid.setAttribute('playsinline','');
-    vid.setAttribute('preload','metadata');
+    vid.setAttribute('preload','auto');
     vid.style.cssText = 'width:100%;height:220px;object-fit:cover;display:block';
+    vid.src = p.mediaSrc;
     mediaWrap.appendChild(vid);
-    // play as soon as enough data is loaded
     if(vidsArr) vidsArr.push(vid);
   } else if(hasGallery){
     p.images.forEach((src,j)=>{
@@ -2054,11 +2056,14 @@ function buildGrid(){
       const vid=document.createElement('video');
       vid.muted=true; vid.loop=true; vid.autoplay=true;
       vid.playsInline=true;
+      vid.setAttribute('muted','');
+      vid.setAttribute('autoplay','');
+      vid.setAttribute('loop','');
       vid.setAttribute('playsinline','');
       vid.setAttribute('preload','auto');
       vid.src=p.mediaSrc;
       mediaWrap.appendChild(vid);
-      vidsToPlay.push(vid); // play AFTER appended to DOM
+      vidsToPlay.push(vid);
     } else {
       const img=document.createElement('img');
       img.src=p.mediaSrc; img.alt=p.title;
