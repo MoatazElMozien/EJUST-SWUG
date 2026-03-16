@@ -1783,7 +1783,7 @@ let scDragLastX = 0;
 let scDragVelocity = 0;
 let scMomentum = 0;
 
-function makeScCard(p, i){
+function makeScCard(p, i, vidsArr){
   const card = document.createElement('div');
   card.className = 'sc-card';
 
@@ -1806,9 +1806,7 @@ function makeScCard(p, i){
     vid.style.cssText = 'width:100%;height:220px;object-fit:cover;display:block';
     mediaWrap.appendChild(vid);
     // play as soon as enough data is loaded
-    vid.addEventListener('loadeddata', ()=>{ vid.play().catch(()=>{}); });
-    vid.addEventListener('canplay',    ()=>{ vid.play().catch(()=>{}); });
-    vid.play().catch(()=>{});
+    if(vidsArr) vidsArr.push(vid);
   } else if(hasGallery){
     p.images.forEach((src,j)=>{
       const img = document.createElement('img');
@@ -1887,8 +1885,13 @@ function buildShowcase(){
   const cnt=document.getElementById('scCountNum');
   if(cnt) cnt.textContent=projects.length;
 
-  projects.forEach((p,i)=>ticker.appendChild(makeScCard(p,i)));
-  ticker.querySelectorAll('video').forEach(v=>{ v.muted=true; v.play().catch(()=>{}); });
+  const scVids=[];
+  projects.forEach((p,i)=>{
+    const card=makeScCard(p,i,scVids);
+    ticker.appendChild(card);
+  });
+  // play after all cards are in DOM
+  scVids.forEach(v=>v.play().catch(()=>{}));
 
   requestAnimationFrame(()=>{
     scSetWidth=ticker.scrollWidth;
@@ -1985,23 +1988,23 @@ function buildGrid(){
   const grid=document.getElementById('projGrid');
   if(!grid) return;
   grid.innerHTML='';
+  const vidsToPlay=[];
   projects.forEach((p,i)=>{
     const card=document.createElement('div');
     card.className='proj-card';
 
-    // ── media (DOM-first so videos actually play) ──
+    // ── media ──
     const mediaWrap=document.createElement('div');
     mediaWrap.className='proj-media';
     if(p.mediaType==='video'){
       const vid=document.createElement('video');
       vid.muted=true; vid.loop=true; vid.autoplay=true;
-      vid.playsInline=true; vid.setAttribute('playsinline','');
-      vid.setAttribute('preload','metadata');
+      vid.playsInline=true;
+      vid.setAttribute('playsinline','');
+      vid.setAttribute('preload','auto');
       vid.src=p.mediaSrc;
-      vid.addEventListener('loadeddata',()=>vid.play().catch(()=>{}));
-      vid.addEventListener('canplay',   ()=>vid.play().catch(()=>{}));
-      vid.play().catch(()=>{});
       mediaWrap.appendChild(vid);
+      vidsToPlay.push(vid); // play AFTER appended to DOM
     } else {
       const img=document.createElement('img');
       img.src=p.mediaSrc; img.alt=p.title;
@@ -2029,8 +2032,10 @@ function buildGrid(){
       </div>`;
     card.appendChild(body);
     card.addEventListener('click',()=>openModal(p.id));
-    grid.appendChild(card);
+    grid.appendChild(card); // IN DOM first
   });
+  // NOW play — videos are in the document
+  vidsToPlay.forEach(v=>v.play().catch(()=>{}));
 }
 
 // ── MODAL ─────────────────────────────────────────────────────
