@@ -1334,6 +1334,7 @@ window.gsap = { registerPlugin: () => {} }; // dummy to avoid errors
 // Run on DOM ready
 document.addEventListener('DOMContentLoaded', () => {
   runHeroAnimation();
+initVideoPlayback();
   initScrollReveals();
   initNavScroll();
 });
@@ -1728,6 +1729,59 @@ function showToast(msg){
 // ── CURSOR ────────────────────────────────────────────────────
 // (cursor initialized below)
 
+
+// ── VIDEO PLAY MANAGER ────────────────────────────────────────
+// Plays videos when they enter the viewport (always allowed by browsers)
+// Also plays all on first user interaction as fallback
+function initVideoPlayback(){
+  const playAll = ()=>{
+    document.querySelectorAll('video').forEach(v=>{
+      v.muted=true;
+      v.play().catch(()=>{});
+    });
+  };
+
+  // IntersectionObserver: play when visible, pause when not
+  const observer = new IntersectionObserver((entries)=>{
+    entries.forEach(entry=>{
+      const v = entry.target;
+      if(entry.isIntersecting){
+        v.muted = true;
+        v.play().catch(()=>{});
+      } else {
+        v.pause();
+      }
+    });
+  }, { threshold: 0.1 });
+
+  // Observe all current videos
+  document.querySelectorAll('video').forEach(v=>{
+    v.muted = true;
+    observer.observe(v);
+  });
+
+  // Re-observe whenever new videos are added to DOM (MutationObserver)
+  new MutationObserver(mutations=>{
+    mutations.forEach(m=>{
+      m.addedNodes.forEach(node=>{
+        if(node.nodeType !== 1) return;
+        const vids = node.tagName==='VIDEO' ? [node] : [...node.querySelectorAll('video')];
+        vids.forEach(v=>{ v.muted=true; observer.observe(v); v.play().catch(()=>{}); });
+      });
+    });
+  }).observe(document.body, { childList:true, subtree:true });
+
+  // Fallback: play all on first click/touch anywhere
+  const onInteract = ()=>{
+    playAll();
+    document.removeEventListener('click', onInteract);
+    document.removeEventListener('touchstart', onInteract);
+    document.removeEventListener('keydown', onInteract);
+  };
+  document.addEventListener('click', onInteract);
+  document.addEventListener('touchstart', onInteract);
+  document.addEventListener('keydown', onInteract);
+}
 
 // ── INIT ──────────────────────────────────────────────────────
 
