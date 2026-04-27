@@ -3,7 +3,19 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>E-JUST SWUG</title>
+<title>E-JUST SWUG — SolidWorks User Group</title>
+<meta name="description" content="E-JUST SolidWorks User Group — engineering students mastering 3D CAD design at the Egypt-Japan University of Science and Technology.">
+<meta name="robots" content="index, follow">
+<meta property="og:type" content="website">
+<meta property="og:title" content="E-JUST SWUG — SolidWorks User Group">
+<meta property="og:description" content="Engineering the Future, One Model at a Time. Enter the showcase.">
+<meta property="og:url" content="https://YOUR-DOMAIN.vercel.app/">
+<meta property="og:image" content="https://YOUR-DOMAIN.vercel.app/assets/images/og-cover.jpg">
+<meta property="og:site_name" content="E-JUST SWUG">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="E-JUST SWUG — SolidWorks User Group">
+<meta name="twitter:image" content="https://YOUR-DOMAIN.vercel.app/assets/images/og-cover.jpg">
+<link rel="canonical" href="https://YOUR-DOMAIN.vercel.app/">
 <style>
 *,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
 :root{
@@ -81,6 +93,31 @@ body::before{
 ═══════════════════════════════════════════ */
 #scene{position:fixed;inset:0;z-index:0;opacity:0;transition:opacity 1s ease;}
 #scene.on{opacity:1;}
+/* ══ VIDEO BACKGROUND ══ */
+#bgVid {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  z-index: 0;
+  opacity: 0;
+  transition: opacity 1.6s ease;
+}
+#bgVid.on { opacity: 1; }
+
+/* dark overlay sitting above video, below everything else */
+#vidOverlay {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  background: rgba(6,6,7,0.68);
+}
+
+/* push existing scene children above the overlay */
+.atmo, .grid-floor, .grid-ceil { z-index: 2; position: relative; }
+
+
 
 /* 3D GRID FLOOR */
 .grid-floor{
@@ -416,6 +453,9 @@ body::before{
 
 <!-- ══ SCENE BG ══ -->
 <div id="scene">
+  <!-- Fullscreen background video — place your video at assets/videos/intro.mp4 -->
+  <video id="bgVid" autoplay muted loop playsinline preload="none" src="assets/videos/intro.mp4"></video>
+  <div id="vidOverlay"></div>
   <div class="atmo"></div>
   <div class="grid-floor"></div>
   <div class="grid-ceil"></div>
@@ -601,6 +641,12 @@ setTimeout(()=>{
 /* ── REVEAL SCENE ── */
 function revealScene(){
   document.getElementById('scene').classList.add('on');
+  // Start background video
+  const vid = document.getElementById('bgVid');
+  if(vid){
+    vid.play().catch(()=>{});
+    setTimeout(()=>vid.classList.add('on'), 200);
+  }
   // corners
   ['cTL','cTR','cBL','cBR'].forEach((id,i)=>{
     setTimeout(()=>document.getElementById(id).classList.add('on'),i*80);

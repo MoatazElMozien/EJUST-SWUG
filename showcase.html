@@ -3,7 +3,21 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>E-JUST SWUG — SolidWorks User Group</title>
+<title>E-JUST SWUG — SolidWorks User Group Showcase</title>
+<!-- SEO -->
+<meta name="description" content="The official project showcase of E-JUST SolidWorks User Group — 13+ precision-engineered 3D CAD assemblies by engineering students at E-JUST.">
+<meta name="robots" content="index, follow">
+<!-- Open Graph -->
+<meta property="og:type" content="website">
+<meta property="og:title" content="E-JUST SWUG — SolidWorks User Group Showcase">
+<meta property="og:description" content="13+ precision-engineered 3D CAD assemblies. From V12 engines to prosthetics — explore the full showcase.">
+<meta property="og:url" content="https://YOUR-DOMAIN.vercel.app/showcase.html">
+<meta property="og:image" content="https://YOUR-DOMAIN.vercel.app/assets/images/og-cover.jpg">
+<meta property="og:site_name" content="E-JUST SWUG">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="E-JUST SWUG — SolidWorks User Group Showcase">
+<meta name="twitter:image" content="https://YOUR-DOMAIN.vercel.app/assets/images/og-cover.jpg">
+<link rel="canonical" href="https://YOUR-DOMAIN.vercel.app/showcase.html">
 <style>
 /* ══════════════════════════════════════════
    THEMES
@@ -16,21 +30,8 @@
   --accent: #e8192c; --accent2: #ff4d5e;
   --nav-bg: rgba(8,8,9,.97);
 }
-body.t-blue {
-  --red:#1e6fff; --red2:rgba(30,111,255,.1); --red3:rgba(30,111,255,.3);
-  --bg:#060810; --surface:#0c1020; --surface2:#121828;
-  --accent:#1e6fff; --accent2:#5590ff; --nav-bg:rgba(6,8,16,.97);
-}
-body.t-green {
-  --red:#00e676; --red2:rgba(0,230,118,.08); --red3:rgba(0,230,118,.28);
-  --bg:#030a06; --surface:#071210; --surface2:#0c1a14;
-  --accent:#00e676; --accent2:#69ffb4; --nav-bg:rgba(3,10,6,.97);
-}
-body.t-slate {
-  --red:#c084fc; --red2:rgba(192,132,252,.1); --red3:rgba(192,132,252,.28);
-  --bg:#06060f; --surface:#0e0e1c; --surface2:#141428;
-  --accent:#c084fc; --accent2:#e0b4ff; --nav-bg:rgba(6,6,15,.97);
-}
+/* Theme variants removed — single red-dark theme */
+
 
 /* ══════════════════════════════════════════
    BASE
@@ -101,26 +102,9 @@ nav.stuck .nav-blur{
 .nl a:hover::after{width:100%}
 .nav-right{display:flex;align-items:center;gap:10px}
 
-/* theme switcher */
-.theme-switcher{display:flex;gap:6px;align-items:center}
-.t-dot{
-  width:14px;height:14px;border-radius:50%;cursor:none;
-  border:2px solid transparent;transition:border-color .2s,transform .2s;
-}
-.t-dot:hover{transform:scale(1.25)}
-.t-dot.active{border-color:var(--text)}
-.t-dot[data-t="default"]{background:linear-gradient(135deg,#e8192c,#1b1b4b)}
-.t-dot[data-t="t-blue"]{background:linear-gradient(135deg,#1e6fff,#0a0a2e)}
-.t-dot[data-t="t-green"]{background:linear-gradient(135deg,#00e676,#031a0c)}
-.t-dot[data-t="t-slate"]{background:linear-gradient(135deg,#c084fc,#0e0e28)}
+/* theme-switcher CSS removed */
 
-.n-add{
-  font-family:'IBM Plex Mono',monospace;font-size:9px;letter-spacing:2px;
-  text-transform:uppercase;background:transparent;color:var(--red);
-  border:1px solid var(--red);padding:9px 16px;cursor:none;
-  transition:all .2s;
-}
-.n-add:hover{background:var(--red2)}
+/* .n-add removed */
 .n-btn{
   font-family:'IBM Plex Mono',monospace;font-size:9px;letter-spacing:2px;
   text-transform:uppercase;background:var(--red);color:#fff;
@@ -527,98 +511,6 @@ nav.stuck .nav-blur{
   background:rgba(255,255,255,.02);transition:background .3s;
 }
 .m-feat::before{content:'→';color:var(--red);position:absolute;left:10px;top:10px;transition:color .3s}
-
-/* ══════════════════════════════════════════
-   ADD PROJECT PANEL
-══════════════════════════════════════════ */
-.add-bg{
-  position:fixed;inset:0;z-index:900;
-  background:rgba(6,6,8,.97);backdrop-filter:blur(20px);
-  display:flex;align-items:center;justify-content:center;
-  padding:20px;opacity:0;pointer-events:none;transition:opacity .3s;overflow-y:auto;
-}
-.add-bg.open{opacity:1;pointer-events:all}
-.add-box{
-  background:var(--surface);border:1px solid var(--border2);
-  max-width:700px;width:100%;
-  transform:translateY(28px);
-  transition:transform .35s cubic-bezier(.16,1,.3,1),background .4s;
-  position:relative;
-}
-.add-bg.open .add-box{transform:none}
-.add-head{
-  display:flex;align-items:center;justify-content:space-between;
-  padding:20px 28px;border-bottom:1px solid var(--border);
-}
-.add-head-title{font-family:'Bebas Neue',sans-serif;font-size:26px;letter-spacing:2px}
-.add-close{
-  background:transparent;border:1px solid var(--border);
-  color:var(--muted);width:34px;height:34px;cursor:none;
-  display:flex;align-items:center;justify-content:center;
-  font-size:13px;transition:all .2s;
-}
-.add-close:hover{border-color:var(--red);color:var(--text)}
-.add-form{padding:28px}
-.f-row{margin-bottom:20px}
-.f-row-2{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-bottom:20px}
-label{
-  display:block;font-family:'IBM Plex Mono',monospace;font-size:11px;
-  letter-spacing:3px;color:var(--muted);text-transform:uppercase;margin-bottom:7px;
-}
-input[type=text],input[type=number],textarea,select{
-  width:100%;background:var(--surface2);
-  border:1px solid var(--border);color:var(--text);
-  padding:11px 14px;
-  font-family:'Montserrat',sans-serif;font-size:15px;font-weight:300;
-  transition:border-color .2s,background .4s,color .4s;outline:none;
-}
-input[type=text]:focus,input[type=number]:focus,textarea:focus,select:focus{border-color:var(--red)}
-textarea{resize:vertical;min-height:88px}
-select option{background:var(--surface2)}
-.file-drop{
-  border:1px dashed var(--border2);padding:26px;text-align:center;
-  cursor:pointer;transition:border-color .3s,background .3s;position:relative;
-}
-.file-drop:hover,.file-drop.drag{border-color:var(--red);background:var(--red2)}
-.file-drop input[type=file]{
-  position:absolute;inset:0;opacity:0;cursor:pointer;width:100%;height:100%;
-}
-.fd-icon{font-family:'Bebas Neue',sans-serif;font-size:32px;color:var(--red);display:block;margin-bottom:5px;transition:color .3s}
-.fd-txt{font-family:'IBM Plex Mono',monospace;font-size:9px;letter-spacing:2px;color:var(--muted);text-transform:uppercase}
-.fd-sub{font-family:'IBM Plex Mono',monospace;font-size:8px;color:var(--muted2);margin-top:4px}
-.file-preview{margin-top:12px;max-height:160px;overflow:hidden;display:none}
-.file-preview img,.file-preview video{width:100%;max-height:160px;object-fit:cover;display:block}
-.feat-list{display:flex;flex-direction:column;gap:8px;margin-bottom:8px}
-.feat-row{display:flex;align-items:center;gap:8px}
-.feat-row input{flex:1}
-.feat-row button{
-  background:transparent;border:1px solid var(--border);
-  color:var(--muted);width:32px;height:38px;cursor:none;
-  display:flex;align-items:center;justify-content:center;
-  font-size:15px;flex-shrink:0;transition:all .2s;
-}
-.feat-row button:hover{border-color:var(--red);color:var(--red)}
-.add-feat-btn{
-  width:100%;font-family:'IBM Plex Mono',monospace;font-size:9px;letter-spacing:2px;
-  text-transform:uppercase;background:transparent;
-  border:1px dashed var(--border2);color:var(--muted);
-  padding:8px;cursor:none;transition:all .2s;margin-top:2px;
-}
-.add-feat-btn:hover{border-color:var(--red);color:var(--red)}
-.form-actions{display:flex;gap:12px;margin-top:24px;padding-top:20px;border-top:1px solid var(--border)}
-.f-submit{
-  flex:1;font-family:'IBM Plex Mono',monospace;font-size:10px;letter-spacing:2px;
-  text-transform:uppercase;background:var(--red);border:none;color:#fff;
-  padding:14px;cursor:none;transition:background .2s;
-}
-.f-submit:hover{background:var(--accent2)}
-.f-cancel{
-  font-family:'IBM Plex Mono',monospace;font-size:10px;letter-spacing:2px;
-  text-transform:uppercase;background:transparent;
-  border:1px solid var(--border2);color:var(--muted);
-  padding:14px 22px;cursor:none;transition:all .2s;
-}
-.f-cancel:hover{border-color:var(--red);color:var(--text)}
 
 /* ══════════════════════════════════════════
    TOAST
@@ -1053,13 +945,6 @@ nav { isolation: auto; }
     <li><a href="#projects">Projects</a></li>
   </ul>
   <div class="nav-right">
-    <div class="theme-switcher" id="themeSwitcher">
-      <button class="t-dot active" data-t="default" title="Red Dark"></button>
-      <button class="t-dot" data-t="t-blue" title="Blue Dark"></button>
-      <button class="t-dot" data-t="t-green" title="Green Dark"></button>
-      <button class="t-dot" data-t="t-slate" title="Slate Dark"></button>
-    </div>
-    <button class="n-add" onclick="openAdd()">+ Add Project</button>
     <button class="n-btn" onclick="document.getElementById('projects').scrollIntoView({behavior:'smooth'})">Explore ↓</button>
   </div>
 </nav>
@@ -1164,50 +1049,7 @@ nav { isolation: auto; }
   </div>
 </div>
 
-<!-- ═══ ADD PROJECT PANEL ═══ -->
-<div class="add-bg" id="addBg" onclick="onABg(event)">
-  <div class="add-box">
-    <div class="add-head">
-      <span class="add-head-title">Add New Project</span>
-      <button class="add-close" onclick="closeAdd()">&#10005;</button>
-    </div>
-    <div class="add-form">
-      <div class="f-row-2">
-        <div><label>Project Title *</label><input type="text" id="fTitle" placeholder="e.g. Gear Assembly"></div>
-        <div><label>Designer Name *</label><input type="text" id="fDesigner" placeholder="e.g. Eng. Ahmed Ali"></div>
-      </div>
-      <div class="f-row-2">
-        <div><label>Total Parts *</label><input type="number" id="fParts" placeholder="e.g. 64" min="1"></div>
-        <div><label>Status</label>
-          <select id="fStatus"><option>Complete</option><option>In Progress</option><option>Concept</option></select>
-        </div>
-      </div>
-      <div class="f-row"><label>Description *</label><textarea id="fDesc" placeholder="Describe the project, its purpose and working principle..."></textarea></div>
-      <div class="f-row">
-        <label>Media (Image or Video) *</label>
-        <div class="file-drop" id="fileDrop">
-          <input type="file" id="fFile" accept="image/*,video/*" onchange="handleFile(event)">
-          <span class="fd-icon">&#8853;</span>
-          <div class="fd-txt">Drop image or video here, or click to browse</div>
-          <div class="fd-sub">JPG &middot; PNG &middot; MP4 &middot; MOV</div>
-          <div class="file-preview" id="filePreview"></div>
-        </div>
-      </div>
-      <div class="f-row">
-        <label>Key Features (up to 6)</label>
-        <div class="feat-list" id="featList">
-          <div class="feat-row"><input type="text" placeholder="e.g. Vertical space efficiency"><button type="button" onclick="remFeat(this)">&#8722;</button></div>
-          <div class="feat-row"><input type="text" placeholder="e.g. Low maintenance design"><button type="button" onclick="remFeat(this)">&#8722;</button></div>
-        </div>
-        <button type="button" class="add-feat-btn" onclick="addFeat()">+ Add Feature</button>
-      </div>
-      <div class="form-actions">
-        <button class="f-cancel" onclick="closeAdd()">Cancel</button>
-        <button class="f-submit" onclick="submitProject()">Add to Showcase &rarr;</button>
-      </div>
-    </div>
-  </div>
-</div>
+<!-- Add Project panel removed — admin-managed only -->
 
 <!-- FOOTER -->
 <footer>
@@ -1641,84 +1483,8 @@ function closeModal(){
 }
 function onMBg(e){if(e.target===document.getElementById('modalBg'))closeModal();}
 
-// ── ADD PROJECT ───────────────────────────────────────────────
-let pendingMedia=null;
-function openAdd(){document.getElementById('addBg').classList.add('open');document.body.style.overflow='hidden';}
-function closeAdd(){document.getElementById('addBg').classList.remove('open');document.body.style.overflow='';resetForm();}
-function onABg(e){if(e.target===document.getElementById('addBg'))closeAdd();}
+// Add Project removed — admin-managed
 
-function resetForm(){
-  ['fTitle','fDesigner','fParts','fDesc'].forEach(id=>document.getElementById(id).value='');
-  document.getElementById('fStatus').value='Complete';
-  document.getElementById('fFile').value='';
-  document.getElementById('filePreview').style.display='none';
-  document.getElementById('filePreview').innerHTML='';
-  pendingMedia=null;
-  document.getElementById('featList').innerHTML=`
-    <div class="feat-row"><input type="text" placeholder="e.g. Vertical space efficiency"><button type="button" onclick="remFeat(this)">&#8722;</button></div>
-    <div class="feat-row"><input type="text" placeholder="e.g. Low maintenance design"><button type="button" onclick="remFeat(this)">&#8722;</button></div>`;
-}
-
-function handleFile(e){
-  const file=e.target.files[0]; if(!file) return;
-  const reader=new FileReader();
-  reader.onload=ev=>{
-    const src=ev.target.result;
-    const isVid=file.type.startsWith('video/');
-    pendingMedia={type:isVid?'video':'image',src};
-    const p=document.getElementById('filePreview');
-    p.style.display='block';
-    p.innerHTML=isVid
-      ?`<video src="${src}" controls muted></video>`
-      :`<img src="${src}">`;
-  };
-  reader.readAsDataURL(file);
-}
-
-// drag & drop
-const fd=document.getElementById('fileDrop');
-fd.addEventListener('dragover',e=>{e.preventDefault();fd.classList.add('drag')});
-fd.addEventListener('dragleave',()=>fd.classList.remove('drag'));
-fd.addEventListener('drop',e=>{
-  e.preventDefault();fd.classList.remove('drag');
-  const file=e.dataTransfer.files[0]; if(!file) return;
-  const dt=new DataTransfer(); dt.items.add(file);
-  document.getElementById('fFile').files=dt.files;
-  handleFile({target:document.getElementById('fFile')});
-});
-
-function addFeat(){
-  const list=document.getElementById('featList');
-  if(list.children.length>=6){showToast('Max 6 features');return;}
-  const d=document.createElement('div'); d.className='feat-row';
-  d.innerHTML=`<input type="text" placeholder="Feature ${list.children.length+1}"><button type="button" onclick="remFeat(this)">&#8722;</button>`;
-  list.appendChild(d);
-}
-function remFeat(btn){
-  if(document.getElementById('featList').children.length<=1) return;
-  btn.closest('.feat-row').remove();
-}
-
-function submitProject(){
-  const title=document.getElementById('fTitle').value.trim();
-  const designer=document.getElementById('fDesigner').value.trim();
-  const parts=parseInt(document.getElementById('fParts').value);
-  const status=document.getElementById('fStatus').value;
-  const desc=document.getElementById('fDesc').value.trim();
-  const feats=[...document.querySelectorAll('#featList input')].map(i=>i.value.trim()).filter(Boolean);
-  if(!title||!designer||!parts||!desc){showToast('Fill all required fields!');return;}
-  if(!pendingMedia){showToast('Please upload media!');return;}
-  projects.push({
-    id:Date.now(),title,designer,parts,status,desc,
-    mediaType:pendingMedia.type, mediaSrc:pendingMedia.src,
-    images: pendingMedia.type==='image' ? [pendingMedia.src] : [],
-    features:feats.length?feats:['Custom engineering design']
-  });
-  buildShowcase(); buildGrid(); updateStats();
-  closeAdd();
-  showToast(`"${title}" added!`);
-  setTimeout(()=>document.getElementById('projects').scrollIntoView({behavior:'smooth'}),600);
-}
 
 function showToast(msg){
   const t=document.getElementById('toast');
@@ -1802,7 +1568,7 @@ function initVideoPlayback(){
   });
 })();
 
-document.addEventListener('keydown',e=>{if(e.key==='Escape'){closeModal();closeAdd();closeReport();}});
+document.addEventListener('keydown',e=>{if(e.key==='Escape'){closeModal();closeReport();}});
 
 // ── SHOWCASE ─ RAF INFINITE SCROLL ───────────────────────────
 let scPaused = false;
@@ -2144,7 +1910,7 @@ const REPORTS = {"1": {"overview": "A Bucket Elevator is a vertical conveying me
 
 function openReport(projectId){
   const p = projects.find(x => x.id === projectId);
-  const r = REPORTS[String(projectId)];
+  const r = REPORTS[String(projectId)] || p.report;
   if(!p || !r) return;
 
   document.getElementById('rTag').textContent = `// Explore Further — Project ${String(projectId).padStart(2,'0')}`;
