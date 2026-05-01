@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>404 — Page Not Found · E-JUST SWUG</title>
+<meta name="robots" content="noindex">
+<link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='-12 -12 24 24'%3E%3Cpath fill='%23e8192c' fill-rule='evenodd' d='M0,-8 L2.18,-7.7 L3.25,-11.55 L5.87,-10.47 L3.9,-6.97 L5.66,-5.66 L6.97,-3.9 L10.47,-5.87 L11.55,-3.25 L7.7,-2.18 L8,0 L7.7,2.18 L11.55,3.25 L10.47,5.87 L6.97,3.9 L5.66,5.66 L3.9,6.97 L5.87,10.47 L3.25,11.55 L2.18,7.7 L0,8 L-2.18,7.7 L-3.25,11.55 L-5.87,10.47 L-3.9,6.97 L-5.66,-5.66 L-6.97,-3.9 L-10.47,5.87 L-11.55,3.25 L-7.7,2.18 L-8,0 L-7.7,-2.18 L-11.55,-3.25 L-10.47,-5.87 L-6.97,-3.9 L-5.66,-5.66 L-3.9,-6.97 L-5.87,-10.47 L-3.25,-11.55 L-2.18,-7.7 Z M4,0 A4,4 0 1,1 -4,0 A4,4 0 1,1 4,0 Z'/%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=IBM+Plex+Mono:wght@300;400&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
+:root{
+  --red:#e8192c;
+  --bg:#060607;
+  --text:#f0f0f0;
+  --mono:'IBM Plex Mono',monospace;
+  --disp:'Bebas Neue',Impact,'Arial Narrow',Arial,sans-serif;
+}
+html,body{
+  width:100%;height:100%;
+  background:var(--bg);
+  font-family:var(--mono);
+  overflow:hidden;
+  display:flex;flex-direction:column;
+  align-items:center;justify-content:center;
+}
+
+/* Film grain */
+body::after{
+  content:'';position:fixed;inset:0;z-index:100;pointer-events:none;opacity:.10;
+  background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+}
+
+/* Background grid */
+.grid-bg{
+  position:fixed;inset:0;z-index:0;
+  background-image:
+    linear-gradient(rgba(232,25,44,.03) 1px,transparent 1px),
+    linear-gradient(90deg,rgba(232,25,44,.03) 1px,transparent 1px);
+  background-size:60px 60px;
+}
+
+/* Scanline */
+.scan{
+  position:fixed;left:0;right:0;height:1px;z-index:2;pointer-events:none;
+  background:linear-gradient(90deg,transparent,rgba(232,25,44,.22),transparent);
+  animation:scanA 9s linear infinite;
+}
+@keyframes scanA{0%{top:-2px;opacity:0}5%{opacity:.22}95%{opacity:.08}100%{top:100%;opacity:0}}
+
+/* Corner brackets */
+.c{position:fixed;width:44px;height:44px;z-index:5;pointer-events:none;opacity:.6;}
+.c::before,.c::after{content:'';position:absolute;background:var(--red);}
+.c::before{width:2px;height:32px;} .c::after{width:32px;height:2px;}
+.c.tl{top:22px;left:22px;} .c.tr{top:22px;right:22px;transform:scaleX(-1);transform-origin:right top;}
+.c.bl{bottom:22px;left:22px;transform:scaleY(-1);transform-origin:left bottom;}
+.c.br{bottom:22px;right:22px;transform:scale(-1);transform-origin:right bottom;}
+
+/* Content */
+.wrap{
+  position:relative;z-index:10;
+  display:flex;flex-direction:column;
+  align-items:center;text-align:center;
+  gap:0;
+  animation:wrapIn .8s cubic-bezier(.16,1,.3,1) forwards;
+  opacity:0;transform:translateY(24px);
+}
+@keyframes wrapIn{to{opacity:1;transform:translateY(0);}}
+
+.err-tag{
+  font-size:9px;letter-spacing:6px;color:rgba(232,25,44,.65);
+  text-transform:uppercase;margin-bottom:16px;
+  display:flex;align-items:center;gap:12px;
+}
+.err-tag::before,.err-tag::after{content:'';width:20px;height:1px;background:rgba(232,25,44,.35);}
+
+.err-code{
+  font-family:var(--disp);
+  font-size:clamp(120px,25vw,260px);
+  line-height:.82;
+  letter-spacing:4px;
+  color:transparent;
+  -webkit-text-stroke:2px rgba(240,240,240,.7);
+  text-shadow:0 0 80px rgba(232,25,44,.18);
+  position:relative;
+}
+/* Glitch on the 404 */
+.err-code{animation:codeGlitch 6s ease infinite 1.5s;}
+@keyframes codeGlitch{
+  0%,92%,100%{transform:translateX(0);filter:none;}
+  93%{transform:translateX(-5px);filter:blur(.5px) drop-shadow(-4px 0 var(--red));}
+  94%{transform:translateX(4px);filter:drop-shadow(3px 0 cyan);}
+  95%{transform:translateX(-2px);filter:none;}
+  96%{transform:translateX(0);}
+}
+
+.err-label{
+  font-family:var(--disp);
+  font-size:clamp(22px,4vw,48px);
+  color:var(--red);
+  letter-spacing:clamp(3px,1vw,8px);
+  text-shadow:0 0 24px rgba(232,25,44,.5);
+  margin-top:8px;
+}
+
+.err-divider{
+  display:flex;align-items:center;gap:14px;
+  margin:24px 0 20px;width:clamp(200px,40vw,360px);
+}
+.el{flex:1;height:1px;background:linear-gradient(90deg,transparent,rgba(232,25,44,.3),transparent);}
+.ed{width:4px;height:4px;background:var(--red);border-radius:50%;box-shadow:0 0 6px var(--red);}
+
+.err-msg{
+  font-size:clamp(10px,1.2vw,13px);
+  letter-spacing:clamp(2px,.8vw,4px);
+  color:rgba(240,240,240,.35);
+  text-transform:uppercase;
+  margin-bottom:36px;
+  max-width:420px;
+  line-height:1.8;
+}
+.err-msg em{color:rgba(232,25,44,.6);font-style:normal;}
+
+/* Buttons */
+.err-btns{
+  display:flex;gap:16px;flex-wrap:wrap;justify-content:center;
+}
+.ebtn{
+  position:relative;overflow:hidden;
+  display:inline-flex;align-items:center;gap:12px;
+  padding:14px clamp(22px,3vw,44px);
+  border:1px solid var(--red);background:transparent;
+  font-family:var(--mono);font-size:clamp(10px,1.1vw,12px);
+  letter-spacing:3px;text-transform:uppercase;color:var(--text);
+  cursor:pointer;outline:none;text-decoration:none;
+  -webkit-tap-highlight-color:transparent;touch-action:manipulation;
+}
+.ebtn.primary::before{
+  content:'';position:absolute;inset:0;background:var(--red);
+  transform:translateX(-102%);transition:transform .4s cubic-bezier(.77,0,.18,1);
+}
+@media(hover:hover){.ebtn.primary:hover::before{transform:translateX(0);}}
+.ebtn:active::before{transform:translateX(0) !important;}
+.ebtn span{position:relative;z-index:1;}
+.ebtn.secondary{border-color:rgba(240,240,240,.15);color:rgba(240,240,240,.4);}
+@media(hover:hover){.ebtn.secondary:hover{border-color:rgba(240,240,240,.35);color:rgba(240,240,240,.7);}}
+
+/* Bottom stat */
+.err-stat{
+  position:fixed;bottom:0;left:0;right:0;
+  display:flex;justify-content:center;align-items:center;gap:24px;
+  padding:14px;
+  border-top:1px solid rgba(232,25,44,.08);
+  background:rgba(6,6,7,.7);
+  backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);
+  font-size:8px;letter-spacing:3px;color:rgba(240,240,240,.2);text-transform:uppercase;
+  z-index:10;
+}
+.err-stat span{color:var(--red);}
+</style>
+</head>
+<body>
+<div class="grid-bg"></div>
+<div class="scan"></div>
+
+<div class="c tl"></div>
+<div class="c tr"></div>
+<div class="c bl"></div>
+<div class="c br"></div>
+
+<div class="wrap">
+  <div class="err-tag">// System Error · E-JUST SWUG</div>
+
+  <div class="err-code">404</div>
+  <div class="err-label">PAGE NOT FOUND</div>
+
+  <div class="err-divider">
+    <div class="el"></div><div class="ed"></div><div class="el"></div>
+  </div>
+
+  <p class="err-msg">
+    The page you're looking for doesn't exist or was moved.<br>
+    Check the URL or return to the <em>showcase</em>.
+  </p>
+
+  <div class="err-btns">
+    <a href="/showcase.html" class="ebtn primary"><span>Enter Showcase →</span></a>
+    <a href="/"              class="ebtn secondary"><span>Home</span></a>
+  </div>
+</div>
+
+<div class="err-stat">
+  E-JUST SWUG &nbsp;·&nbsp; <span>15+</span> Projects &nbsp;·&nbsp; <span>1442+</span> Parts Designed
+</div>
+
+<script>
+// Auto-redirect after 12s if user hasn't clicked
+let t = 12;
+const countdown = setInterval(() => {
+  t--;
+  if(t <= 0){
+    clearInterval(countdown);
+    window.location.href = '/showcase.html';
+  }
+}, 1000);
+// Cancel redirect on any click
+document.addEventListener('click', () => clearInterval(countdown));
+</script>
+</body>
+</html>

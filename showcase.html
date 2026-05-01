@@ -4,13 +4,13 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>E-JUST SWUG — SolidWorks User Group Showcase</title>
-<!-- SEO -->
-<meta name="description" content="The official project showcase of E-JUST SolidWorks User Group — 13+ precision-engineered 3D CAD assemblies by engineering students at E-JUST.">
+<link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='-12 -12 24 24'%3E%3Cpath fill='%23e8192c' fill-rule='evenodd' d='M0,-8 L2.18,-7.7 L3.25,-11.55 L5.87,-10.47 L3.9,-6.97 L5.66,-5.66 L6.97,-3.9 L10.47,-5.87 L11.55,-3.25 L7.7,-2.18 L8,0 L7.7,2.18 L11.55,3.25 L10.47,5.87 L6.97,3.9 L5.66,5.66 L3.9,6.97 L5.87,10.47 L3.25,11.55 L2.18,7.7 L0,8 L-2.18,7.7 L-3.25,11.55 L-5.87,10.47 L-3.9,6.97 L-5.66,-5.66 L-6.97,-3.9 L-10.47,5.87 L-11.55,3.25 L-7.7,2.18 L-8,0 L-7.7,-2.18 L-11.55,-3.25 L-10.47,-5.87 L-6.97,-3.9 L-5.66,-5.66 L-3.9,-6.97 L-5.87,-10.47 L-3.25,-11.55 L-2.18,-7.7 Z M4,0 A4,4 0 1,1 -4,0 A4,4 0 1,1 4,0 Z'/%3E%3C/svg%3E">
+
+<meta name="description" content="The official project showcase of E-JUST SolidWorks User Group — 15 precision-engineered 3D CAD assemblies by engineering students at E-JUST.">
 <meta name="robots" content="index, follow">
-<!-- Open Graph -->
 <meta property="og:type" content="website">
 <meta property="og:title" content="E-JUST SWUG — SolidWorks User Group Showcase">
-<meta property="og:description" content="13+ precision-engineered 3D CAD assemblies. From V12 engines to prosthetics — explore the full showcase.">
+<meta property="og:description" content="15 precision-engineered 3D CAD assemblies. From V12 engines to prosthetics — explore the full showcase.">
 <meta property="og:url" content="https://YOUR-DOMAIN.vercel.app/showcase.html">
 <meta property="og:image" content="https://YOUR-DOMAIN.vercel.app/assets/images/og-cover.jpg">
 <meta property="og:site_name" content="E-JUST SWUG">
@@ -31,7 +31,6 @@
   --nav-bg: rgba(8,8,9,.97);
 }
 /* Theme variants removed — single red-dark theme */
-
 
 /* ══════════════════════════════════════════
    BASE
@@ -104,7 +103,7 @@ nav.stuck .nav-blur{
 
 /* theme-switcher CSS removed */
 
-/* .n-add removed */
+
 .n-btn{
   font-family:'IBM Plex Mono',monospace;font-size:9px;letter-spacing:2px;
   text-transform:uppercase;background:var(--red);color:#fff;
@@ -756,6 +755,7 @@ nav { isolation: auto; }
   position: relative;
   overflow: hidden;
   padding: 0;
+  touch-action: pan-y;
 }
 /* fade edges */
 .showcase-stage::before,
@@ -992,10 +992,10 @@ nav { isolation: auto; }
       <p>The E-JUST SolidWorks User Group (SWUG) is a community of engineering students dedicated to mastering 3D CAD design — one of the industry's most powerful mechanical design platforms.</p>
       <p>From concept to detailed assembly, our members tackle real-world engineering challenges, collaborate on complex mechanical systems, and develop the technical skills that define tomorrow's engineers.</p>
       <div class="about-pillars">
-        <div class="pillar rv"><div class="p-n">01</div><div class="p-t">3D Modeling</div><p>Precision part and assembly design from the ground up.</p></div>
-        <div class="pillar rv"><div class="p-n">02</div><div class="p-t">Mechanical Systems</div><p>Full functional assemblies with real-world applications.</p></div>
-        <div class="pillar rv"><div class="p-n">03</div><div class="p-t">Engineering Drawing</div><p>Technical documentation to industry standards.</p></div>
-        <div class="pillar rv"><div class="p-n">04</div><div class="p-t">Innovation</div><p>Pushing limits with creative engineering solutions.</p></div>
+        <div class="pillar rv" style="transition-delay:0ms"><div class="p-n">01</div><div class="p-t">3D Modeling</div><p>Precision part and assembly design from the ground up.</p></div>
+        <div class="pillar rv" style="transition-delay:120ms"><div class="p-n">02</div><div class="p-t">Mechanical Systems</div><p>Full functional assemblies with real-world applications.</p></div>
+        <div class="pillar rv" style="transition-delay:240ms"><div class="p-n">03</div><div class="p-t">Engineering Drawing</div><p>Technical documentation to industry standards.</p></div>
+        <div class="pillar rv" style="transition-delay:360ms"><div class="p-n">04</div><div class="p-t">Innovation</div><p>Pushing limits with creative engineering solutions.</p></div>
       </div>
     </div>
     <div class="about-visual rv-r">
@@ -1049,7 +1049,6 @@ nav { isolation: auto; }
   </div>
 </div>
 
-<!-- Add Project panel removed — admin-managed only -->
 
 <!-- FOOTER -->
 <footer>
@@ -1090,6 +1089,39 @@ nav { isolation: auto; }
   opacity: 1 !important;
   transform: none !important;
 }
+
+/* ── IMAGE SKELETON SHIMMER ── */
+.proj-thumb {
+  position: relative;
+  background: #111;
+  overflow: hidden;
+}
+.proj-thumb::before {
+  content: '';
+  position: absolute; inset: 0;
+  background: linear-gradient(90deg,
+    rgba(255,255,255,0)    0%,
+    rgba(255,255,255,.04) 50%,
+    rgba(255,255,255,0)  100%);
+  background-size: 200% 100%;
+  animation: shimmer 1.6s ease-in-out infinite;
+  z-index: 1;
+}
+.proj-thumb img,
+.proj-thumb video {
+  position: relative; z-index: 2;
+  opacity: 0;
+  transition: opacity .5s ease;
+}
+.proj-thumb img.loaded,
+.proj-thumb video.loaded {
+  opacity: 1;
+}
+@keyframes shimmer {
+  0%   { background-position: -200% 0; }
+  100% { background-position:  200% 0; }
+}
+
 </style>
 
 <script>
@@ -1197,8 +1229,8 @@ body { font-family: 'Segoe UI', system-ui, -apple-system, Arial, sans-serif; }
 }
 .mono, .nl a, .sec-eye, .h-badge, .proj-idx, .sc-card-idx,
 .h-stat-l, .h-scroll-txt, .mq-item, label, .sc-report-btn,
-.report-btn, .n-add, .n-btn, .sc-pause, .sc-count,
-.f-submit, .f-cancel, .foot-copy, .r-section-title,
+.report-btn, .n-btn, .sc-pause, .sc-count,
+.foot-copy, .r-section-title,
 .report-tag, .m-eye, .m-feat-title, .r-pill, .sc-card-overlay-lbl,
 .proj-overlay-lbl, .proj-badge, .toast, .sc-dot, .sc-arrow {
   font-family: 'Segoe UI', Arial, sans-serif !important;
@@ -1322,7 +1354,10 @@ let projects = [
         {name:"Alignment Adjustment Joints", desc:"Multi-axis elements between pylon and foot allowing angular fine-tuning to distribute ground reaction forces correctly and optimize gait efficiency."},
         {name:"Protective Outer Shell", desc:"A shaped outer casing protecting internal mechanics from dust, moisture, and impact while providing an aesthetically appropriate external appearance."},
         {name:"Fasteners, Bearings & Hardware", desc:"The complete set of 70 precision bolts, nuts, bearing elements, seals, and retaining components maintaining alignment and long-term reliability under cyclic loading."},
-      ]
+      ],
+      features:["Pneumatic adaptive socket — dynamically conforms to daily residual limb volume fluctuations","Micro-adjustable height calibration — screw-thread mechanism for bilateral symmetry","User-controlled comfort — inflation valve gives direct real-time fit control","Modular architecture — individual components replaceable without replacing the full device","Full weight-bearing integrity — 70 precision parts engineered for cyclic compressive loading"],
+      applications:"Below-knee prostheses of this modular pneumatic design are prescribed in rehabilitation clinics and prosthetics centers for transtibial amputees requiring personalized adaptive fit. Applications span military and trauma rehabilitation, diabetic limb loss recovery, congenital limb difference, and sports prosthetics where dynamic fit adjustment during athletic activity is critical.",
+      features:["Pneumatic adaptive socket — dynamically conforms to daily residual limb volume fluctuations","Micro-adjustable height calibration — screw-thread mechanism for bilateral symmetry","User-controlled comfort — inflation valve gives direct real-time fit control","Modular architecture — individual components replaceable without replacing the full device","Full weight-bearing integrity — 70 precision parts engineered for cyclic compressive loading"]
     },
     features:["Pneumatic adaptive fit — dynamically conforms to residual limb volume","Micro-adjustable height calibration for bilateral symmetry","User-controlled comfort — no clinical intervention needed","Modular architecture — replace components without replacing the device","Full weight-bearing structural integrity across 70 precision parts"]
   }
@@ -1345,12 +1380,14 @@ let projects = [
         {name:"Pistons, Connecting Rods & Valvetrain", desc:"12 forged pistons with high-strength connecting rods, plus the full camshaft, tappet, rocker arm, and valve assembly managing gas exchange across all cylinders."},
         {name:"Accessory Drive System", desc:"Belt-driven pulley system powering auxiliary components including alternator, water pump, power steering pump, and supercharger drive from the crankshaft snout."},
         {name:"Cooling & Lubrication Systems", desc:"Integrated coolant passages and high-volume oil pump circulating pressurized lubricant to all bearing surfaces, camshafts, and valvetrain under extreme supercharged loads."},
-      ]
+      ],
+      features:["897-part assembly — one of the highest-detail engine models in the showcase","DOHC four-camshaft layout — independent intake and exhaust cam control per bank","Supercharged forced induction — twin-screw blower delivers 30–100% power increase","60° V12 configuration — near-perfect primary and secondary mechanical balance","Equal-length exhaust headers — optimized scavenging for maximum power at all RPM"],
+      applications:"The Supercharged V12 represents the pinnacle of automotive engine engineering, deployed in flagship luxury performance vehicles such as the Lamborghini Aventador, Aston Martin DB11, and Rolls-Royce Ghost, as well as racing powerplants, marine high-performance applications, and aerospace auxiliary power units. As a CAD showcase model, it demonstrates mastery of complex 897-part multi-body assemblies, constrained motion, and detailed mechanical documentation."
     },
     features:["897-part production-grade complexity and full mechanical fidelity","12-cylinder balance — near-zero vibration from perfect force cancellation","Forced induction supercharger — dramatically elevated power density","Equal-length exhaust headers for maximum scavenging efficiency","DOHC four-camshaft configuration for precise 12-cylinder valve timing"]
   }
   ,{
-    id:14, title:"V6 Engine Assembly", designer:"SWUG Design Team", parts:0, status:"Complete",
+    id:14, title:"V6 Engine Assembly", designer:"SWUG Design Team", parts:380, status:"Complete",
     desc:"A detailed V6 internal combustion engine assembly showcasing the six-cylinder V-configuration powerplant — the backbone of performance sedans, sports cars, and modern SUVs worldwide. A study in compact power and engineering balance.",
     mediaType:"video", mediaSrc:'assets/videos/v6.mp4',
     images:[],
@@ -1367,12 +1404,14 @@ let projects = [
         {name:"Exhaust System", desc:"Tubular exhaust headers collecting combustion gases from each cylinder and routing them to the collector and downstream exhaust system."},
         {name:"Timing System", desc:"Belt or chain-driven timing system synchronizing crankshaft and camshaft rotation to maintain correct valve timing throughout the engine's operating range."},
         {name:"Cooling & Lubrication", desc:"Integrated water jacket coolant passages and pressurized oil lubrication system maintaining thermal and mechanical integrity under full load."},
-      ]
+      ],
+      features:["Compact V6 packaging — shorter than inline-six with superior block rigidity","Six-cylinder firing sequence — 120° intervals produce smooth overlapping power strokes","Inherent balance — V-configuration provides excellent primary force cancellation","Versatile mounting — compatible with transverse FWD and longitudinal RWD drivetrains","Industry-standard powerplant — backbone of performance sedans, SUVs, and sports cars globally"],
+      applications:"V6 engines power the majority of mid-range and performance vehicles globally — from family SUVs and pickup trucks to sports sedans and entry-level supercars. This assembly model is applicable to automotive engineering education, powertrain design coursework, engine dynamics simulation, and CAD portfolio demonstration of complex multi-body mechanical assemblies."
     },
     features:["Compact V6 packaging — shorter than inline-six with superior rigidity","Smooth power delivery from overlapping six-cylinder firing sequence","Balanced V-configuration — excellent inherent primary force cancellation","Versatile mounting — suits transverse FWD or longitudinal RWD layouts","Widely deployed in performance sedans, SUVs, and sports cars globally"]
   }
   ,{
-    id:15, title:"Wankel Rotary Engine", designer:"SWUG Design Team", parts:0, status:"Complete",
+    id:15, title:"Wankel Rotary Engine", designer:"SWUG Design Team", parts:48, status:"Complete",
     desc:"The legendary Wankel Rotary Engine — a triangular rotor spinning inside an epitrochoidal housing, achieving the complete four-stroke combustion cycle through pure rotational motion. Made famous by Mazda's iconic RX-7 and RX-8, it is one of the most intellectually distinctive mechanical concepts in automotive history.",
     mediaType:"video", mediaSrc:'assets/videos/wankel.mp4',
     images:[],
@@ -1390,7 +1429,9 @@ let projects = [
         {name:"Internal Rotor Gear & Stationary Gear", desc:"A matched gear pair enforcing the precise 3:1 geometric ratio governing rotor orbital motion — ensuring apex seals never lose contact with the housing wall."},
         {name:"Intake & Exhaust Ports", desc:"Fixed ports opened and closed by the passing rotor edges — eliminating the entire valve train mechanism, contributing to the engine's high-RPM capability and mechanical simplicity."},
         {name:"Cooling & Lubrication System", desc:"Coolant passages cast into the housing plus metered oil injection into the intake charge for apex seal lubrication — a design necessity contributing to the engine's characteristic oil consumption."},
-      ]
+      ],
+      features:["Zero reciprocating mass — rotor rotation produces no vibration at source","Three power strokes per revolution — continuous torque for unmatched smoothness","Radically compact — far smaller and lighter than equivalent displacement piston engines","Valvetrain eliminated — fixed intake/exhaust ports remove camshafts, valves, and springs","Epitrochoidal precision — housing geometry maintains perfect apex seal contact at all RPM"],
+      applications:"The Wankel rotary engine found its greatest success in Mazda's RX-7 and RX-8 sports cars and claimed overall victory at the 24 Hours of Le Mans. Contemporary applications include range-extender generators in electric vehicles (Mazda MX-30 R-EV), unmanned aerial vehicles (UAVs) requiring compact high-power-density powerplants, and portable generator sets. As a CAD model it showcases advanced curved surface geometry, multi-body constraint simulation, and rotary mechanism animation."
     },
     features:["Zero reciprocating mass — no vibration at source, exceptionally smooth power","Three power strokes per rotor revolution — continuous torque output","Radically compact packaging — far smaller than equivalent piston engines","No valve train — fixed ports eliminate camshafts, valves, and springs entirely","Iconic motorsport legacy — Mazda RX-7, RX-8, and 24h Le Mans victories"]
   }
@@ -1483,8 +1524,7 @@ function closeModal(){
 }
 function onMBg(e){if(e.target===document.getElementById('modalBg'))closeModal();}
 
-// Add Project removed — admin-managed
-
+// Add Project removed — admin-managed only
 
 function showToast(msg){
   const t=document.getElementById('toast');
@@ -1535,9 +1575,7 @@ function initVideoPlayback(){
 
 // ── MARQUEE ───────────────────────────────────────────────────
 (function(){
-  const items = ["SolidWorks User Group","3D CAD Design","Mechanical Engineering",
-                 "E-JUST","Precision Assembly","Innovation","Design & Build",
-                 "Reverse Engineering","Simulation","Technical Drawing"];
+  const items = ["V12 Engine","Solar FCEV","Wankel Rotary","Below-Knee Prosthesis","Anti-Gravity Mechanism","Jet Engine","Shell & Tube Heat Exchanger","Tailstock Assembly","Anti-Roll Bar","V6 Engine Assembly","Supercharged Engine","Steam Engine","CNC Lathe","SolidWorks User Group","E-JUST Engineering"];
   const mq = document.getElementById('mqTrack');
   if(mq){ for(let i=0;i<2;i++) items.forEach(t=>{
     const d=document.createElement('div'); d.className='mq-item';
@@ -1568,7 +1606,6 @@ function initVideoPlayback(){
   });
 })();
 
-document.addEventListener('keydown',e=>{if(e.key==='Escape'){closeModal();closeReport();}});
 
 // ── SHOWCASE ─ RAF INFINITE SCROLL ───────────────────────────
 let scPaused = false;
@@ -1582,6 +1619,7 @@ let scDragStartOffset = 0;
 let scDragLastX = 0;
 let scDragVelocity = 0;
 let scMomentum = 0;
+let scDragActive = false; // true once moved > 4px (distinguishes click from drag)
 
 function makeScCard(p, i, vidsArr){
   const card = document.createElement('div');
@@ -1692,11 +1730,13 @@ function buildShowcase(){
   // play after all cards are in DOM
   scVids.forEach(v=>v.play().catch(()=>{}));
 
-  requestAnimationFrame(()=>{
-    scSetWidth=ticker.scrollWidth;
+  // Measure after layout settles (100ms covers webfonts + first paint)
+  setTimeout(()=>{
     const orig=[...ticker.querySelectorAll('.sc-card')];
+    // Clone the set for seamless looping
     orig.forEach(c=>{
       const clone=c.cloneNode(true);
+      // Re-wire clone events
       const pidBtn=clone.querySelector('.sc-report-btn');
       const pid=parseInt(pidBtn.dataset.pid);
       pidBtn.addEventListener('click',e=>{e.stopPropagation();openReport(pid);});
@@ -1713,18 +1753,34 @@ function buildShowcase(){
         });
       });
       clone.addEventListener('click',e=>{
+        if(scDragActive) return; // was a drag, not a tap
         if(!e.target.classList.contains('sc-img-dot')&&
-           !e.target.classList.contains('sc-report-btn')&&
-           Math.abs(scDragVelocity)<3) openModal(pid);
+           !e.target.classList.contains('sc-report-btn')) openModal(pid);
       });
       clone.addEventListener('mouseenter',()=>{if(!scPaused) scSpeed=0;});
       clone.addEventListener('mouseleave',()=>{if(!scPaused) scSpeed=1.2;});
       ticker.appendChild(clone);
     });
-    scSetWidth=ticker.scrollWidth/2;
-    startScroll();
-    setupDrag(ticker);
-  });
+    // Also fix original card click to use scDragActive
+    orig.forEach(c=>{
+      const pidBtn=c.querySelector('.sc-report-btn');
+      const pid=parseInt(pidBtn.dataset.pid);
+      // remove old inline listener by cloning (keeps report btn)
+      c.onclick=e=>{
+        if(scDragActive) return;
+        if(!e.target.classList.contains('sc-img-dot')&&
+           !e.target.classList.contains('sc-report-btn')) openModal(pid);
+      };
+    });
+    // Measure width AFTER clones appended
+    requestAnimationFrame(()=>{
+      scSetWidth=ticker.scrollWidth/2;
+      startScroll();
+      setupDrag(ticker);
+      // Disable pointer-events on all media in ticker to prevent drag interference
+      ticker.querySelectorAll('img,video').forEach(el=>el.style.pointerEvents='none');
+    });
+  },100);
 }
 
 function startScroll(){
@@ -1733,44 +1789,94 @@ function startScroll(){
   function tick(){
     scRAF=requestAnimationFrame(tick);
     if(scDragging) return;
-    if(Math.abs(scMomentum)>0.1){
-      scOffset-=scMomentum; scMomentum*=0.94;
+    // Apply momentum or auto-scroll
+    if(Math.abs(scMomentum)>0.05){
+      scOffset+=scMomentum;
+      scMomentum*=0.92;
     } else {
       scMomentum=0;
       if(!scPaused) scOffset-=scSpeed;
     }
-    if(scOffset<=-scSetWidth) scOffset+=scSetWidth;
-    if(scOffset>0) scOffset-=scSetWidth;
+    // Wrap — use while loops so large jumps still wrap correctly
+    if(scSetWidth>0){
+      while(scOffset<=-scSetWidth) scOffset+=scSetWidth;
+      while(scOffset>0)            scOffset-=scSetWidth;
+    }
     ticker.style.transform=`translateX(${scOffset}px)`;
   }
   tick();
 }
 
 function setupDrag(ticker){
+  // Prevent images/videos from swallowing pointer events during drag
+  const mediaEls = ticker.querySelectorAll('img,video');
+  mediaEls.forEach(el=>el.style.pointerEvents='none');
+
   function dragStart(x){
-    scDragging=true; scDragStartX=x; scDragStartOffset=scOffset;
-    scDragLastX=x; scDragVelocity=0; scMomentum=0;
+    scDragging=true;
+    scDragActive=false;       // hasn't moved yet
+    scDragStartX=x;
+    scDragStartOffset=scOffset;
+    scDragLastX=x;
+    scDragVelocity=0;
+    scMomentum=0;
     ticker.style.cursor='grabbing';
+    ticker.style.userSelect='none';
   }
+
   function dragMove(x){
     if(!scDragging) return;
-    scOffset=scDragStartOffset+(x-scDragStartX);
-    if(scOffset<=-scSetWidth) scOffset+=scSetWidth;
-    if(scOffset>0) scOffset-=scSetWidth;
+    const delta=x-scDragStartX;
+    if(Math.abs(delta)>4) scDragActive=true; // confirmed drag, not a tap
+    // FREE movement — no wrapping during drag so it never teleports
+    scOffset=scDragStartOffset+delta;
     ticker.style.transform=`translateX(${scOffset}px)`;
-    scDragVelocity=x-scDragLastX; scDragLastX=x;
+    scDragVelocity=x-scDragLastX;
+    scDragLastX=x;
   }
+
   function dragEnd(){
     if(!scDragging) return;
-    scDragging=false; ticker.style.cursor='grab';
-    scMomentum=-scDragVelocity*0.6;
+    scDragging=false;
+    ticker.style.cursor='grab';
+    ticker.style.userSelect='';
+    // Normalize offset into valid range ONCE on release
+    if(scSetWidth>0){
+      while(scOffset<=-scSetWidth) scOffset+=scSetWidth;
+      while(scOffset>0)            scOffset-=scSetWidth;
+    }
+    // Fling momentum — direction: negative = forward (left)
+    scMomentum=scDragVelocity*0.55;
   }
-  ticker.addEventListener('mousedown',e=>{e.preventDefault();dragStart(e.clientX);});
-  document.addEventListener('mousemove',e=>dragMove(e.clientX));
-  document.addEventListener('mouseup',()=>dragEnd());
+
+  // Mouse
+  ticker.addEventListener('mousedown',e=>{
+    if(e.button!==0) return;
+    e.preventDefault();
+    dragStart(e.clientX);
+  });
+  document.addEventListener('mousemove',e=>{if(scDragging) dragMove(e.clientX);});
+  document.addEventListener('mouseup',()=>{if(scDragging) dragEnd();});
+
+  // Touch — use non-passive touchmove so we can control scroll direction
+  const stage=ticker.parentElement;
+  if(stage){
+    stage.addEventListener('touchstart',e=>dragStart(e.touches[0].clientX),{passive:true});
+    stage.addEventListener('touchmove',e=>{
+      if(!scDragging) return;
+      e.preventDefault(); // stop page scroll while dragging ticker
+      dragMove(e.touches[0].clientX);
+    },{passive:false});
+    stage.addEventListener('touchend',()=>{if(scDragging) dragEnd();},{passive:true});
+    stage.addEventListener('touchcancel',()=>{if(scDragging) dragEnd();},{passive:true});
+  }
   ticker.addEventListener('touchstart',e=>dragStart(e.touches[0].clientX),{passive:true});
-  ticker.addEventListener('touchmove',e=>dragMove(e.touches[0].clientX),{passive:true});
-  ticker.addEventListener('touchend',()=>dragEnd(),{passive:true});
+  ticker.addEventListener('touchmove',e=>{
+    if(!scDragging) return;
+    e.preventDefault();
+    dragMove(e.touches[0].clientX);
+  },{passive:false});
+  ticker.addEventListener('touchend',()=>{if(scDragging) dragEnd();},{passive:true});
 }
 
 function scTogglePause(){
@@ -1780,7 +1886,7 @@ function scTogglePause(){
   if(btn) btn.innerHTML=scPaused?'&#9654;&nbsp; Play':'&#9646;&#9646;&nbsp; Pause';
 }
 
-function scNudge(dir){ scMomentum=dir>0?8:-8; }
+function scNudge(dir){ scMomentum=dir>0?12:-12; }
 
 // ── PROJECT GRID ──────────────────────────────────────────────
 function buildGrid(){
@@ -1802,14 +1908,19 @@ function buildGrid(){
       vid.setAttribute('loop','');
       vid.setAttribute('playsinline','');
       vid.setAttribute('preload','auto');
+      vid.addEventListener('loadeddata', () => mediaWrap.classList.add('media-loaded'));
+      setTimeout(() => mediaWrap.classList.add('media-loaded'), 1400); // fallback
       mediaWrap.appendChild(vid); // IN DOM first
       vid.src=p.mediaSrc;        // src set AFTER in DOM
       vid.load();                // explicit load
       vidsToPlay.push(vid);
     } else {
       const img=document.createElement('img');
-      img.src=p.mediaSrc; img.alt=p.title;
+      img.alt=p.title;
+      img.addEventListener('load', () => mediaWrap.classList.add('media-loaded'));
       mediaWrap.appendChild(img);
+      img.src = p.images&&p.images[0] ? p.images[0] : p.mediaSrc;
+      if(img.complete) mediaWrap.classList.add('media-loaded');
     }
     const ov=document.createElement('div');
     ov.className='proj-overlay';
@@ -1954,6 +2065,96 @@ function closeReport(){
   document.body.style.overflow = '';
 }
 function onRepBg(e){ if(e.target === document.getElementById('reportBg')) closeReport(); }
+
+
+// ── MOBILE SWIPE TO CLOSE ────────────────────────────────────────
+(function(){
+  let touchStartY = 0;
+  let touchStartX = 0;
+
+  function addSwipeClose(el, closeFn){
+    el.addEventListener('touchstart', e => {
+      touchStartY = e.touches[0].clientY;
+      touchStartX = e.touches[0].clientX;
+    }, { passive: true });
+    el.addEventListener('touchend', e => {
+      const dy = e.changedTouches[0].clientY - touchStartY;
+      const dx = Math.abs(e.changedTouches[0].clientX - touchStartX);
+      // Swipe down > 80px and more vertical than horizontal
+      if(dy > 80 && dy > dx) closeFn();
+    }, { passive: true });
+  }
+
+  const modalBox  = document.querySelector('.modal-box');
+  const reportBox = document.getElementById('reportBox');
+  if(modalBox)  addSwipeClose(modalBox,  closeModal);
+  if(reportBox) addSwipeClose(reportBox, closeReport);
+})();
+
+// ── KEYBOARD NAVIGATION ──────────────────────────────────────────
+document.addEventListener('keydown', e => {
+  const modalOpen  = document.getElementById('modalBg')?.classList.contains('open');
+  const reportOpen = document.getElementById('reportBg')?.classList.contains('open');
+  if(e.key === 'Escape'){
+    if(modalOpen)  closeModal();
+    if(reportOpen) closeReport();
+  }
+  if(modalOpen){
+    if(e.key === 'ArrowLeft')  mGalleryMove(-1);
+    if(e.key === 'ArrowRight') mGalleryMove(1);
+  }
+});
+
+// ── SWIPE HINT on mobile modals ──────────────────────────────────
+(function(){
+  const style = document.createElement('style');
+  style.textContent = `
+    @media (pointer:coarse){
+      .modal-box::before,
+      .report-box::before {
+        content: '';
+        display:block; width:36px; height:4px;
+        background:rgba(255,255,255,.15);
+        border-radius:2px;
+        margin: 10px auto 0;
+      }
+    }
+  `;
+  document.head.appendChild(style);
+})();
+
+
+// ── MOBILE SWIPE TO CLOSE ─────────────────────────────
+(function(){
+  let sy=0, sx=0;
+  function swipeable(el, fn){
+    if(!el) return;
+    el.addEventListener('touchstart', e=>{ sy=e.touches[0].clientY; sx=e.touches[0].clientX; }, {passive:true});
+    el.addEventListener('touchend', e=>{
+      const dy=e.changedTouches[0].clientY-sy;
+      const dx=Math.abs(e.changedTouches[0].clientX-sx);
+      if(dy>80 && dy>dx) fn();
+    }, {passive:true});
+  }
+  // Attach after DOM ready — modal-box and reportBox exist at parse time
+  swipeable(document.querySelector('.modal-box'), closeModal);
+  swipeable(document.getElementById('reportBox'), closeReport);
+  // Swipe pill indicator on mobile
+  const s=document.createElement('style');
+  s.textContent='@media(pointer:coarse){.modal-box::before,.report-box::before{content:"";display:block;width:36px;height:4px;background:rgba(255,255,255,.15);border-radius:2px;margin:10px auto 0;}}';
+  document.head.appendChild(s);
+})();
+
+// ── KEYBOARD: ESC + ARROW KEYS ────────────────────────
+document.addEventListener('keydown', e=>{
+  const mOpen = document.getElementById('modalBg')?.classList.contains('open');
+  const rOpen = document.getElementById('reportBg')?.classList.contains('open');
+  if(e.key==='Escape'){ if(mOpen) closeModal(); if(rOpen) closeReport(); }
+  if(mOpen){
+    if(e.key==='ArrowLeft')  mGalleryMove(-1);
+    if(e.key==='ArrowRight') mGalleryMove(1);
+  }
+});
 
 // ── INIT ─────────────────────────────────────────────────────
 updateStats();

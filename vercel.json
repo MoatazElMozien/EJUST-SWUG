@@ -2,20 +2,44 @@
   "rewrites": [
     { "source": "/", "destination": "/index.html" }
   ],
+  "routes": [
+    { "handle": "filesystem" },
+    { "src": "/(.*)", "dest": "/404.html", "status": 404 }
+  ],
   "headers": [
     {
       "source": "/(.*)",
       "headers": [
-        { "key": "Cross-Origin-Embedder-Policy", "value": "unsafe-none" },
-        { "key": "Cross-Origin-Opener-Policy", "value": "unsafe-none" }
+        { "key": "X-Frame-Options",            "value": "DENY" },
+        { "key": "X-Content-Type-Options",     "value": "nosniff" },
+        { "key": "Referrer-Policy",            "value": "strict-origin-when-cross-origin" },
+        { "key": "Permissions-Policy",         "value": "camera=(), microphone=(), geolocation=()" },
+        { "key": "Cross-Origin-Embedder-Policy","value": "unsafe-none" },
+        { "key": "Cross-Origin-Opener-Policy", "value": "unsafe-none" },
+        {
+          "key": "Content-Security-Policy",
+          "value": "default-src 'self'; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; img-src 'self' data:; media-src 'self'; connect-src 'none'; frame-ancestors 'none'; base-uri 'self';"
+        }
       ]
     },
     {
       "source": "/assets/videos/(.*)",
       "headers": [
-        { "key": "Content-Type", "value": "video/mp4" },
+        { "key": "Content-Type",  "value": "video/mp4" },
         { "key": "Accept-Ranges", "value": "bytes" },
-        { "key": "Cache-Control", "value": "public, max-age=31536000" }
+        { "key": "Cache-Control", "value": "public, max-age=31536000, immutable" }
+      ]
+    },
+    {
+      "source": "/assets/images/(.*)",
+      "headers": [
+        { "key": "Cache-Control", "value": "public, max-age=31536000, immutable" }
+      ]
+    },
+    {
+      "source": "/(index|showcase|404)\\.html",
+      "headers": [
+        { "key": "Cache-Control", "value": "no-cache, no-store, must-revalidate" }
       ]
     }
   ]
