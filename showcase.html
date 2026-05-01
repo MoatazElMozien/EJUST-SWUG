@@ -37,29 +37,39 @@
 ══════════════════════════════════════════ */
 *,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
 html{scroll-behavior:smooth}
-body{background:var(--bg);color:var(--text);font-family:'Montserrat',sans-serif;overflow-x:hidden;cursor:none;transition:background .4s,color .4s}
+body{background:var(--bg);color:var(--text);font-family:'Montserrat',sans-serif;overflow-x:hidden;transition:background .4s,color .4s}
+@media (pointer:fine) { body { cursor:none; } * { cursor:none !important; } }
+@media (pointer:coarse){ #cur { display:none !important; } }
+@media (hover:none)    { #cur { display:none !important; } }
 ::-webkit-scrollbar{width:2px}
 ::-webkit-scrollbar-track{background:var(--bg)}
 ::-webkit-scrollbar-thumb{background:var(--red)}
 
-/* ── CURSOR: ARROW + GEAR BELOW ── */
-#cur{
+/* ── CUSTOM CURSOR ── */
+#cur {
   position:fixed;pointer-events:none;z-index:9000;
-  width:40px;height:58px;
-  /* tip of arrow = top-left of SVG = mouse position */
-  transform:translate(0,0);
-  filter:drop-shadow(0 2px 6px rgba(0,0,0,.7));
+  top:0;left:0;will-change:transform;
+  opacity:0;transition:opacity .25s ease;
 }
+#cur .cur-arrow { transition:transform .15s ease, opacity .15s ease; }
+#cur .cur-pointer,
+#cur .cur-grab,
+#cur .cur-grabbing,
+#cur .cur-text { display:none; position:absolute; top:0; left:0; }
+
+#cur.cursor-pointer .cur-arrow { opacity:0; transform:scale(0.7); }
+#cur.cursor-pointer .cur-pointer { display:block; }
+
+#cur.cursor-grab .cur-arrow { opacity:0; transform:scale(0.7); }
+#cur.cursor-grab .cur-grab { display:block; }
+
+#cur.cursor-grabbing .cur-arrow { opacity:0; transform:scale(0.7); }
+#cur.cursor-grabbing .cur-grabbing { display:block; }
+
+#cur.cursor-text .cur-arrow { opacity:0; transform:scale(0.7); }
+#cur.cursor-text .cur-text { display:block; }
+
 #cur2{ display:none; }
-@keyframes gearSpin{ to{ transform:rotate(360deg); } }
-@keyframes gearSpinFast{ to{ transform:rotate(360deg); } }
-#cur #gear{
-  transform-origin:20px 46px;
-  animation:gearSpin 3s linear infinite;
-}
-#cur.hovering #gear{
-  animation:gearSpinFast 0.55s linear infinite;
-}
 
 /* ══════════════════════════════════════════
    NAV — logo outside stacking context
@@ -832,12 +842,13 @@ nav { isolation: auto; }
 
 /* ── HERO CENTER FOCAL PIECE ── */
 .h-focal{
-  position:relative;display:flex;align-items:center;justify-content:center;
-  margin:32px 0 8px;z-index:2;
-  opacity:0;transform:scale(.88);
+  position:absolute;right:8%;top:50%;
+  display:flex;align-items:center;justify-content:center;
+  z-index:2;
+  opacity:0;transform:translateY(-50%) scale(.88);
   transition:opacity .9s ease,transform .9s cubic-bezier(.16,1,.3,1);
 }
-.h-focal.anim-in{opacity:1;transform:scale(1)}
+.h-focal.anim-in{opacity:1;transform:translateY(-50%) scale(1)}
 
 .h-focal-ring{
   position:absolute;
@@ -902,37 +913,36 @@ nav { isolation: auto; }
 </head>
 <body>
 
-<svg id="cur" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 40 58">
-  <!-- Arrow: tip at (3,2), tail reaching down-right -->
-  <!-- Dark outline for visibility on any background -->
-  <polygon points="3,2 3,28 9,23 14,34 18,32 13,21 21,21"
-    fill="rgba(0,0,0,0.5)" stroke="rgba(0,0,0,0.5)"
-    stroke-width="3.5" stroke-linejoin="round" stroke-linecap="round"/>
-  <!-- White arrow body -->
-  <polygon points="3,2 3,28 9,23 14,34 18,32 13,21 21,21"
-    fill="#ffffff" stroke="#ffffff" stroke-width="0.5" stroke-linejoin="round"/>
-  <!-- Red tip accent -->
-  <polygon points="3,2 3,10 8,8" fill="#e8192c"/>
-
-  <!-- Gear sitting below arrow tail — center (20,46) radius 10 -->
-  <g id="gear">
-    <!-- Gear teeth (8 teeth) -->
-    <rect x="18.5" y="33.5" width="3" height="5" rx="0.8" fill="#e8192c"/>
-    <rect x="18.5" y="33.5" width="3" height="5" rx="0.8" fill="#e8192c" transform="rotate(45,20,46)"/>
-    <rect x="18.5" y="33.5" width="3" height="5" rx="0.8" fill="#e8192c" transform="rotate(90,20,46)"/>
-    <rect x="18.5" y="33.5" width="3" height="5" rx="0.8" fill="#e8192c" transform="rotate(135,20,46)"/>
-    <rect x="18.5" y="33.5" width="3" height="5" rx="0.8" fill="#e8192c" transform="rotate(180,20,46)"/>
-    <rect x="18.5" y="33.5" width="3" height="5" rx="0.8" fill="#e8192c" transform="rotate(225,20,46)"/>
-    <rect x="18.5" y="33.5" width="3" height="5" rx="0.8" fill="#e8192c" transform="rotate(270,20,46)"/>
-    <rect x="18.5" y="33.5" width="3" height="5" rx="0.8" fill="#e8192c" transform="rotate(315,20,46)"/>
-    <!-- Gear body circle -->
-    <circle cx="20" cy="46" r="8" fill="#e8192c" stroke="rgba(0,0,0,0.4)" stroke-width="0.5"/>
-    <!-- Inner hole -->
-    <circle cx="20" cy="46" r="3.2" fill="#080809"/>
-    <!-- Inner shine ring -->
-    <circle cx="20" cy="46" r="2" fill="none" stroke="rgba(232,25,44,0.5)" stroke-width="0.8"/>
-  </g>
-</svg>
+<div id="cur">
+  <!-- Default arrow -->
+  <svg class="cur-arrow" xmlns="http://www.w3.org/2000/svg" width="28" height="34" viewBox="0 0 28 34" fill="none">
+    <polygon points="3,1 3,28 9,22 14,33 19,31 14,20 24,20"
+      fill="none" stroke="#000" stroke-width="3" stroke-linejoin="round" stroke-linecap="round"/>
+    <polygon points="3,1 3,28 9,22 14,33 19,31 14,20 24,20"
+      fill="white" stroke="#1a1a1a" stroke-width="1" stroke-linejoin="round"/>
+    <polygon points="3,1 3,9 7,7" fill="#e8192c"/>
+  </svg>
+  <!-- Pointer hand -->
+  <svg class="cur-pointer" xmlns="http://www.w3.org/2000/svg" width="32" height="36" viewBox="0 0 32 36" fill="none">
+    <g filter="url(#psh2)"><path d="M11 7V22l-4.5-4.5-2.5 2.5 9 9h13l3-8V11h-4v-2h-4V7h-4V4h-6v3z" fill="white" stroke="#1a1a1a" stroke-width="1" stroke-linejoin="round"/><circle cx="14" cy="5" r="1.5" fill="#e8192c"/></g>
+    <defs><filter id="psh2"><feDropShadow dx="1" dy="2" stdDeviation="1.5" flood-opacity=".5"/></filter></defs>
+  </svg>
+  <!-- Grab hand -->
+  <svg class="cur-grab" xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 32 32" fill="none">
+    <g filter="url(#gsh2)"><path d="M8 17v-5a2 2 0 0 1 4 0v-2a2 2 0 0 1 4 0v-1a2 2 0 0 1 4 0v2a2 2 0 0 1 4 0v6c0 5-3 9-8 9s-8-4-8-9z" fill="white" stroke="#1a1a1a" stroke-width="1" stroke-linejoin="round"/><circle cx="16" cy="8" r="1.2" fill="#e8192c"/></g>
+    <defs><filter id="gsh2"><feDropShadow dx="1" dy="2" stdDeviation="1.5" flood-opacity=".5"/></filter></defs>
+  </svg>
+  <!-- Grabbing hand -->
+  <svg class="cur-grabbing" xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 32 32" fill="none">
+    <g filter="url(#gbsh2)"><path d="M8 18v-4a2 2 0 0 1 4 0v0a2 2 0 0 1 4 0v0a2 2 0 0 1 4 0v0a2 2 0 0 1 4 0v4c0 5-3 9-8 9s-8-4-8-9z" fill="white" stroke="#1a1a1a" stroke-width="1" stroke-linejoin="round"/><rect x="9" y="13" width="14" height="3" rx="1" fill="#e8192c" opacity=".2"/></g>
+    <defs><filter id="gbsh2"><feDropShadow dx="1" dy="2" stdDeviation="1.5" flood-opacity=".5"/></filter></defs>
+  </svg>
+  <!-- Text I-beam -->
+  <svg class="cur-text" xmlns="http://www.w3.org/2000/svg" width="20" height="28" viewBox="0 0 20 28" fill="none">
+    <g filter="url(#tsh2)"><line x1="10" y1="2" x2="10" y2="26" stroke="white" stroke-width="2"/><line x1="5" y1="2" x2="15" y2="2" stroke="white" stroke-width="2"/><line x1="5" y1="26" x2="15" y2="26" stroke="white" stroke-width="2"/><line x1="10" y1="2" x2="10" y2="6" stroke="#e8192c" stroke-width="2"/></g>
+    <defs><filter id="tsh2"><feDropShadow dx="1" dy="1" stdDeviation="1" flood-opacity=".5"/></filter></defs>
+  </svg>
+</div>
 <div id="cur2"></div>
 
 <!-- ═══ NAV ═══ -->
@@ -1587,23 +1597,40 @@ function initVideoPlayback(){
 (function(){
   const cur=document.getElementById('cur');
   if(!cur) return;
-  let mx=0,my=0;
-  document.addEventListener('mousemove',e=>{mx=e.clientX;my=e.clientY;});
-  (function loop(){
-    // tip of arrow is top-left corner of SVG — place directly at mouse
-    cur.style.left=mx+'px';
-    cur.style.top=my+'px';
-    requestAnimationFrame(loop);
-  })();
-  // Hover: spin gear fast on interactive elements
-  document.addEventListener('mouseover',e=>{
-    if(e.target.closest('button,a,[role="button"],.sc-card,.proj-card,.ebtn'))
-      cur.classList.add('hovering');
+  const isTouch = window.matchMedia('(pointer:coarse)').matches || window.matchMedia('(hover:none)').matches;
+  if(isTouch){ cur.style.display='none'; return; }
+
+  let curVisible = false;
+  document.addEventListener('mousemove', e => {
+    cur.style.transform = `translate(${e.clientX}px,${e.clientY}px)`;
+    if(!curVisible){ curVisible=true; cur.style.opacity='1'; }
   });
-  document.addEventListener('mouseout',e=>{
-    if(e.target.closest('button,a,[role="button"],.sc-card,.proj-card,.ebtn'))
-      cur.classList.remove('hovering');
+
+  const interactiveSelectors = 'button, a, [role="button"], .sc-card, .proj-card, .n-btn, .modal-close, .report-close, .sc-arrow, .sc-pause, .modal-gallery-prev, .modal-gallery-next';
+  const grabSelectors = '.sc-ticker';
+  const textSelectors = '.proj-desc, .sc-card-desc, .m-desc, .about-body p, .r-text, .foot-tag, .h-desc';
+
+  document.addEventListener('mouseover', e => {
+    if(e.target.closest(interactiveSelectors)){
+      cur.className = 'cursor-pointer';
+    } else if(e.target.closest(grabSelectors)){
+      cur.className = 'cursor-grab';
+    } else if(e.target.closest(textSelectors)){
+      cur.className = 'cursor-text';
+    }
   });
+  document.addEventListener('mouseout', e => {
+    if(e.target.closest(interactiveSelectors) || e.target.closest(grabSelectors) || e.target.closest(textSelectors)){
+      cur.className = '';
+    }
+  });
+  document.addEventListener('mousedown', e => {
+    if(e.target.closest(grabSelectors)) cur.className = 'cursor-grabbing';
+  });
+  document.addEventListener('mouseup', () => {
+    if(cur.className === 'cursor-grabbing') cur.className = 'cursor-grab';
+  });
+  document.addEventListener('mouseleave', () => { cur.style.opacity='0'; curVisible=false; });
 })();
 
 
